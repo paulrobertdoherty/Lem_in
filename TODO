@@ -1,13 +1,5 @@
-Add an actual path algorithm
-	Breadth-first Dijkstra, whatever that means
 ~~~~~~~~Once I'm Done Debugging~~~
 Error handling
 	Depends on what counts as an error as well
 ~~~~~~~~Things to maybe do~~~~~~~~
-See if I should make the printing path a double-linked list, to eliminate recursion
-	--or--
-	Just take the risk by putting higher numbers first
-Use HashMap for adding links
-	--or--
-	Find if should free linked list created before links
 Thoroughly test everything

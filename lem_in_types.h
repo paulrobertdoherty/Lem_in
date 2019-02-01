@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 15:54:55 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/01/23 11:16:00 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:35:58 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,30 @@
 typedef struct	s_room
 {
 	char		name;
-	int			x;
-	int			y;
-	int			distance;
 	int			visited;
 	t_list		*links;
 }				t_room;
 
-typedef struct	s_hash_map
+typedef struct	s_path
 {
-	t_list		**table;
-	int			buckets;
-}				t_hash_map;
+	t_list		*rooms;
+	int			shared;
+	int			length;
+	int			ants_in_path;
+}				t_path;
+
+typedef struct	s_ant
+{
+	t_list		*path_loc;
+	int			n;
+}				t_ant;
+
+typedef struct	s_ants
+{
+	t_list		*ant_list;
+	t_list		*paths;
+	int			ants;
+	int			ants_left;
+}
 
 #endif

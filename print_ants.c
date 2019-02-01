@@ -6,108 +6,73 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/01/19 18:41:08 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:39:21 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	set_ant_path(t_list *path, t_list **ant_start, t_list **ant_end,
-			int ants)
-{
-	t_list	*i;
-	int		j;
-
-	*ant_start = path;
-	i = *ant_start;
-	j = 1;
-	while (j < ants)
-	{
-		j++;
-		if (i->next)
-			i = i->next;
-	}
-	*ant_end = i;
-}
-
-static int	move_ants(t_list **ant_start, t_list **ant_end, int *start_ants,
-			int *end_ants)
-{
-	if (*start_ants > 0)
-	{
-		(*start_ants)--;
-		if ((*ant_end)->next == NULL)
-			(*end_ants)++;
-	}
-	else
-	{
-		if ((*ant_end)->next == NULL)
-			(*end_ants)++;
-		else
-		{
-			*ant_start = (*ant_start)->next;
-			*ant_end = (*ant_end)->next;
-		}
-	}
-	return (1);
-}
-
-static void	print_ant(int ant, char *room_name)
+static void	print_ant(int ant, char *name, int nl)
 {
 	ft_putchar('L');
 	ft_putnbr(ant);
 	ft_putchar('-');
-	ft_putstr(room_name);
-	ft_putchar(' ');
+	ft_putstr(name);
+	if (nl)
+		ft_putchar('\n');
+	else
+		ft_putchar(' ');
 }
 
-static void	print_path(t_list **ant_start, int start_ants, int end_ants,
-			int ants)
+static void	move_ants(t_ants *ants, int *can_continue)
 {
 	t_list	*i;
-	int		ant;
-	int		printed;
+	t_ant	*current;
 
-	ant = start_ants;
-	i = *ant_start;
-	printed = 0;
-	while (ant < ants)
+	i = i->ant_list;
+	while (i)
 	{
-		if (ant - end_ants >= 0 && i)
+		current = (t_ant *)i->content;
+		if (current->path_loc->next)
 		{
-			print_ant((end_ants < 0 ? 0 : end_ants) + ants - ant,
-					((t_room *)i->content)->name);
-			printed = 1;
+			current->path_loc = current->path_loc->next;
+			//TODO: Add to printing queue or something for sorting, or not
 		}
-		if (i)
-			i = i->next;
-		else
-			break ;
-		ant++;
+		i = i->next;
 	}
-	if (printed)
-		ft_putchar('\n');
 }
 
-void		print_ants(int ants, t_room *start, t_room *end)
+static void	add_ants(t_ants *ants, int *can_continue)
 {
-	t_list	*path;
-	t_list	*ant_start;
-	t_list	*ant_end;
-	int		start_ants;
-	int		end_ants;
+	int		needed;
+	t_list	*i;
 
-	if (!ants)
+	needed = ants->ants > ants->ants_left ? ants->ants_left : ants->ants;
+	i = ants->paths;
+	while (needed > 0)
+	{
+		
+		i = i->next;
+	}
+}
+
+void		print_ants(int ant_c, t_room *start, t_room *end)
+{
+	t_ants	*ants;
+	int		can_continue;
+
+	if (!ant_c)
 		return ;
-	path = NULL;
-	get_path(&path, start, end);
-	if (!path)
+	ants = new_ants(ant_c);
+	get_paths(&(ants->paths), start, end, ant_c);
+	if (!ants->paths)
 		return ;
-	start_ants = ants;
-	end_ants = -ants;
-	set_ant_path(path, &ant_start, &ant_end, ants);
-	while (move_ants(&ant_start, &ant_end, &start_ants, &end_ants) &&
-		end_ants < ants)
-		print_path(&ant_start, start_ants, end_ants, ants);
-	delete_link_list(path);
+	sort_paths(ants->paths);
+	can_continue = 1;
+	while (can_continue)
+	{
+		move_ants(ants, can_continue);
+		add_ants(ants, can_continue);
+	}
+	delete_ants(ants);
 }
