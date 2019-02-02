@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:31 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/01/19 18:10:59 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 17:56:58 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	get_ants(void)
 	gnl(&line);
 	tr = ft_atoi(line);
 	free(line);
+	send_error(!tr);
 	return (tr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 10:20:08 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/01/16 10:04:40 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:40:40 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void			add_link_to_list(t_list **rooms, char *line)
 
 	split = ft_strsplit(line, '-');
 	free(line);
+	send_error(!split[1]);
 	i = *rooms;
 	while (i)
 	{

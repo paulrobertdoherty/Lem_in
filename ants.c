@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:24:10 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/01 17:22:47 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:42:01 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	delete_ant(void *content, size_t content_size)
 
 void		delete_ants(t_ants *ants)
 {
-	ft_strdel(&(tr->paths), &delete_ant);
-	delete_linked_list(tr->ant_list);
+	ft_lstdel(&(ants->paths), &delete_ant);
+	delete_link_list(ants->ant_list);
 	free(ants);
 }

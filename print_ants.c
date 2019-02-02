@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/01 17:19:38 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 20:56:33 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	move_ants(t_ants *ants, int *can_continue)
 	t_list	*i;
 	t_ant	*current;
 
-	i = i->ant_list;
+	i = ants->ant_list;
 	*can_continue = 0;
 	while (i)
 	{
@@ -51,7 +51,7 @@ static void	add_ants(t_ants *ants, int *can_continue)
 	t_list	*i;
 	t_ant	*ta;
 
-	if (ants->ants->left < 1)
+	if (ants->ants_left < 1)
 		return ;
 	i = ants->paths;
 	while (i && ants->ants_left >= 1)
@@ -59,9 +59,9 @@ static void	add_ants(t_ants *ants, int *can_continue)
 		ta = (t_ant *)malloc(sizeof(t_ant));
 		ta->path_loc = i;
 		ta->n = (ants->ants - ants->ants_left) + 1;
-		ft_lstadd(&ants, new_list(ta));
+		ft_lstadd(&(ants->ant_list), new_list(ta));
 		ants->ants_left--;
-		print_ant(current);
+		print_ant(ta);
 		*can_continue = 1;
 		i = i->next;
 	}
@@ -82,8 +82,8 @@ void		print_ants(int ant_c, t_room *start, t_room *end)
 	can_continue = 1;
 	while (can_continue)
 	{
-		move_ants(ants, can_continue);
-		add_ants(ants, can_continue);
+		move_ants(ants, &can_continue);
+		add_ants(ants, &can_continue);
 		ft_putchar('\n');
 	}
 	delete_ants(ants);

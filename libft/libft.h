@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 20:51:41 by pdoherty          #+#    #+#             */
-/*   Updated: 2018/12/09 15:48:48 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:30:51 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_list					*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int						ft_digits(int n);
 int						ft_num_of_splits(const char *s, char c);
 int						ft_get_lst_size(t_list *list);
-t_list					**ft_lst_to_array(t_list *list);
+t_list					**ft_lst_to_array(t_list *list, int *size);
 
 int						get_next_line(const int fd, char **line);
 

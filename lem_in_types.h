@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 15:54:55 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/01 17:22:50 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:40:28 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct	s_room
 {
-	char		name;
+	char		*name;
 	int			visited;
 	t_list		*links;
 }				t_room;
@@ -40,6 +40,6 @@ typedef struct	s_ants
 	t_list		*paths;
 	int			ants;
 	int			ants_left;
-}
+}				t_ants;
 
 #endif
