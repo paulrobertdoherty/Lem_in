@@ -6,22 +6,24 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/01 11:39:21 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 17:19:38 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	print_ant(int ant, char *name, int nl)
+static void	print_ant(t_ant * ant)
 {
+	int		n;
+	char	*name;
+
+	n = ant->n;
+	name = ((t_room *)ant->path_loc->content)->name;
 	ft_putchar('L');
-	ft_putnbr(ant);
+	ft_putnbr(n);
 	ft_putchar('-');
 	ft_putstr(name);
-	if (nl)
-		ft_putchar('\n');
-	else
-		ft_putchar(' ');
+	ft_putchar(' ');
 }
 
 static void	move_ants(t_ants *ants, int *can_continue)
@@ -30,13 +32,15 @@ static void	move_ants(t_ants *ants, int *can_continue)
 	t_ant	*current;
 
 	i = i->ant_list;
+	*can_continue = 0;
 	while (i)
 	{
 		current = (t_ant *)i->content;
 		if (current->path_loc->next)
 		{
+			*can_continue = 1;
 			current->path_loc = current->path_loc->next;
-			//TODO: Add to printing queue or something for sorting, or not
+			print_ant(current);
 		}
 		i = i->next;
 	}
@@ -44,14 +48,21 @@ static void	move_ants(t_ants *ants, int *can_continue)
 
 static void	add_ants(t_ants *ants, int *can_continue)
 {
-	int		needed;
 	t_list	*i;
+	t_ant	*ta;
 
-	needed = ants->ants > ants->ants_left ? ants->ants_left : ants->ants;
+	if (ants->ants->left < 1)
+		return ;
 	i = ants->paths;
-	while (needed > 0)
+	while (i && ants->ants_left >= 1)
 	{
-		
+		ta = (t_ant *)malloc(sizeof(t_ant));
+		ta->path_loc = i;
+		ta->n = (ants->ants - ants->ants_left) + 1;
+		ft_lstadd(&ants, new_list(ta));
+		ants->ants_left--;
+		print_ant(current);
+		*can_continue = 1;
 		i = i->next;
 	}
 }
@@ -73,6 +84,7 @@ void		print_ants(int ant_c, t_room *start, t_room *end)
 	{
 		move_ants(ants, can_continue);
 		add_ants(ants, can_continue);
+		ft_putchar('\n');
 	}
 	delete_ants(ants);
 }

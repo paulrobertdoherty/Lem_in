@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:40 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/01/31 14:10:20 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/01 17:20:17 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ int		free_with_return(char *str, int r);
 t_room	*get_current(t_list *links);
 void	add_to_visiting(t_list *visiting, t_room *room);
 void	remove_from_visiting(t_list *visiting, t_room *room);
+void	sort_paths(t_list *paths);
+t_ants	*new_ants(int ants);
+void	delete_ants(t_ants *ants);
 
 #endif
