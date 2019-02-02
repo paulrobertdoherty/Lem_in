@@ -1,9 +1,0 @@
-print_ants.c:78:2: error: implicit declaration of function 'get_paths' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-        get_paths(&(ants->paths), start, end, ant_c);
-        ^
-print_ants.c:78:2: note: did you mean 'get_path'?
-./lem_in.h:29:6: note: 'get_path' declared here
-void    get_path(t_list **path, t_room *start, t_room *end);
-        ^
-1 error generated.
-make: *** [lem_in] Error 1
