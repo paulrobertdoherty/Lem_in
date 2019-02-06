@@ -6,32 +6,31 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 10:20:08 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/01 19:40:40 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:14:42 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static t_list	*get_link(t_list **rooms, char *name, t_room	*other)
+//TODO: Use a hashmap here
+static int	get_index(char *name, t_rooms *rooms)
 {
-	t_list	*i;
-	t_room	*current;
+	int		i;
+	char	**names;
 
-	i = *rooms;
+	i = 0;
+	names = rooms->room_names;
 	while (i)
 	{
-		current = (t_room *)i->content;
-		if (ft_strequ(current->name, name))
-		{
-			ft_lstadd(&(current->links), new_list(other));
-			return (new_list(current));
-		}
-		i = i->next;
+		if (ft_strequ(names[i], name))
+			return (i);
+		i++;
 	}
-	return (NULL);
+	send_error(1);
+	return (-1);
 }
 
-void			free_split(char **split)
+void		free_split(char **split)
 {
 	int	i;
 
@@ -44,25 +43,18 @@ void			free_split(char **split)
 	free(split);
 }
 
-void			add_link_to_list(t_list **rooms, char *line)
+void		add_link_to_list(t_rooms **rooms, char *line)
 {
-	t_list	*i;
-	t_room	*current;
 	char	**split;
+	int		first;
+	int		second;
 
 	split = ft_strsplit(line, '-');
 	free(line);
 	send_error(!split[1]);
-	i = *rooms;
-	while (i)
-	{
-		current = (t_room *)i->content;
-		if (ft_strequ(current->name, split[0]))
-		{
-			ft_lstadd(&(current->links), get_link(rooms, split[1], current));
-			break ;
-		}
-		i = i->next;
-	}
+	first = get_index(split[0]);
+	second = get_index(split[1]);
+	(*rooms)->paths[first][second] = 1;
+	(*rooms)->paths[second][first] = 1;
 	free_split(split);
 }

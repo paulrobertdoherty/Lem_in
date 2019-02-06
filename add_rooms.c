@@ -6,22 +6,11 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:30:22 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/01/19 15:27:25 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:03:25 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-t_list		*new_list(void const *content)
-{
-	t_list	*tr;
-
-	tr = (t_list *)malloc(sizeof(t_list));
-	tr->content = (void *)content;
-	tr->content_size = sizeof(content);
-	tr->next = NULL;
-	return (tr);
-}
 
 static int	will_continue(char **line)
 {
@@ -34,30 +23,45 @@ static int	will_continue(char **line)
 	return (1);
 }
 
-static void	add_links(t_list **rooms, char *fl)
+static void	add_links(t_rooms **rooms, char *fl)
 {
 	char	*line;
 
+	add_rooms_to_array(*rooms);
 	add_link_to_list(rooms, fl);
 	while (will_continue(&line))
 		add_link_to_list(rooms, line);
 }
 
-static void	set_start_and_end(t_room **start, t_room **end, t_room *ta,
-			int mode)
+static void	set_start_and_end(int *start, int *end, int ta, int *mode)
 {
-	if (mode == 1)
+	if (*mode == 1)
 		*start = ta;
-	else if (mode == 2)
+	else if (*mode == 2)
 		*end = ta;
+	*mode = 0;
 }
 
-void		add_rooms(t_list **rooms, t_room **start, t_room **end)
+static int	add_new_room(t_rooms *rooms, char *line)
+{
+	int		tr;
+	char	*split;
+
+	split = ft_strsplit(line, ' ');
+	send_error(!split[1]);
+	free(line);
+	ft_lstadd(&(rooms->room_name_list), ft_lstnew(split[0], sizeof(split[0])));
+	free_split(split);
+	rooms->num_of_rooms++;
+	return (tr);
+}
+
+void		add_rooms(t_rooms **rooms, int *start, int *end)
 {
 	char	*line;
-	t_room	*ta;
 	int		mode;
 
+	*rooms = new_rooms();
 	mode = 0;
 	while (1)
 	{
@@ -72,11 +76,6 @@ void		add_rooms(t_list **rooms, t_room **start, t_room **end)
 		else if (ft_strequ("##end", line))
 			mode = free_with_return(line, 2);
 		else
-		{
-			ta = create_room(line);
-			ft_lstadd(rooms, new_list(ta));
-			set_start_and_end(start, end, ta, mode);
-			mode = 0;
-		}
+			set_start_and_end(start, end, add_new_room(rooms, line), &mode);
 	}
 }
