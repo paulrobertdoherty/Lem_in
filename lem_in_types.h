@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 15:54:55 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/04 21:39:29 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 11:57:32 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,5 @@ typedef struct	s_ant
 	int			n;
 	t_list		*path;
 }				t_ant;
-
-typedef struct	s_ants
-{
-	t_list		*paths;
-	t_list		*ants;
-	int			ants;
-	int			ants_left;
-}				t_ants;
 
 #endif

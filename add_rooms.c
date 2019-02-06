@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:30:22 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/03 19:03:25 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 14:18:25 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	add_links(t_rooms **rooms, char *fl)
 {
 	char	*line;
 
-	add_rooms_to_array(*rooms);
+	add_rooms_to_array(rooms);
 	add_link_to_list(rooms, fl);
 	while (will_continue(&line))
 		add_link_to_list(rooms, line);
@@ -44,8 +44,7 @@ static void	set_start_and_end(int *start, int *end, int ta, int *mode)
 
 static int	add_new_room(t_rooms *rooms, char *line)
 {
-	int		tr;
-	char	*split;
+	char	**split;
 
 	split = ft_strsplit(line, ' ');
 	send_error(!split[1]);
@@ -53,7 +52,7 @@ static int	add_new_room(t_rooms *rooms, char *line)
 	ft_lstadd(&(rooms->room_name_list), ft_lstnew(split[0], sizeof(split[0])));
 	free_split(split);
 	rooms->num_of_rooms++;
-	return (tr);
+	return (rooms->num_of_rooms - 1);
 }
 
 void		add_rooms(t_rooms **rooms, int *start, int *end)
@@ -76,6 +75,6 @@ void		add_rooms(t_rooms **rooms, int *start, int *end)
 		else if (ft_strequ("##end", line))
 			mode = free_with_return(line, 2);
 		else
-			set_start_and_end(start, end, add_new_room(rooms, line), &mode);
+			set_start_and_end(start, end, add_new_room(*rooms, line), &mode);
 	}
 }

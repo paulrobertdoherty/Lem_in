@@ -6,19 +6,19 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 18:48:50 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/03 19:03:29 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 14:18:16 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	delete_string(void *content, size_t content_size)
+void	delete_generic(void *content, size_t content_size)
 {
 	free(content);
 	content_size = 0;
 }
 
-t_rooms		*new_rooms(void)
+t_rooms	*new_rooms(void)
 {
 	t_rooms	*tr;
 
@@ -30,7 +30,7 @@ t_rooms		*new_rooms(void)
 	return (tr);
 }
 
-void		add_rooms_to_array(t_rooms **rooms)
+void	add_rooms_to_array(t_rooms **rooms)
 {
 	t_rooms	*r;
 	t_list	*j;
@@ -49,11 +49,11 @@ void		add_rooms_to_array(t_rooms **rooms)
 		i++;
 	}
 	r->room_names[i] = NULL;
-	ft_lstdel(r->room_name_list, &delete_string);
+	ft_lstdel(&(r->room_name_list), &delete_generic);
 	r->room_name_list = NULL;
 }
 
-void		free_rooms(t_rooms *rooms)
+void	free_rooms(t_rooms *rooms)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:13:12 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/01 17:17:32 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 14:20:31 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	compare(t_list **paths_arr, int i, int j)
 {
-	t_path	*first;
-	t_path	*second;
+	size_t	first;
+	size_t	second;
 
-	first = (t_path *)paths_arr[i]->content;
-	second = (t_path *)paths_arr[j]->content;
-	return (first->length > second->length);
+	first = paths_arr[i]->content_size;
+	second = paths_arr[j]->content_size;
+	return (first > second);
 }
 
 static void	combine(t_list **paths_arr, int s, int m, int e)
