@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:31 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/07 08:55:56 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/07 09:05:12 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,5 @@ int			main(void)
 	add_rooms(&rooms, &start, &end);
 	print_ants(ants, start, end, rooms);
 	free_rooms(rooms);
-	while (1)
-		;
 	return (0);
 }
