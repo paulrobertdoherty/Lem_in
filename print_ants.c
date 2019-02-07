@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 18:53:05 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/07 08:55:39 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	move_ants(t_list **ants, t_rooms *rooms, int *can_continue)
 	}
 }
 
+//TODO: ta->path = (t_list *)i->content produces a segfault. Eve
 static int	add_ants(t_list *paths, t_list **ant_list, int ants, int *ants_left)
 {
 	t_list	*i;
@@ -62,7 +63,8 @@ static int	add_ants(t_list *paths, t_list **ant_list, int ants, int *ants_left)
 	while (i && *ants_left >= 1)
 	{
 		ta = (t_ant *)malloc(sizeof(t_ant));
-		ta->path = i;
+
+		ta->path = (t_list *)i->content;
 		ta->n = (ants - *ants_left) + 1;
 		tal = (t_list *)malloc(sizeof(t_list));
 		tal->content = ta;
@@ -105,7 +107,7 @@ void		print_ants(int ants, int start, int end, t_rooms *rooms)
 		move_ants(&ant_list, rooms, &can_continue);
 		can_continue = add_ants(paths, &ant_list, ants, &ants_left)
 					|| can_continue;
-		ft_putchar('\n');
+		ft_putchar(can_continue ? '\n' : '\0');
 	}
 	ft_lstdel(&paths, &delete_paths);
 	ft_lstdel(&ant_list, &delete_generic);

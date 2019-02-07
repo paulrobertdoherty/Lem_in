@@ -6,13 +6,28 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 18:48:50 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 19:00:21 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/07 08:27:10 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	delete_generic(void *content, size_t content_size)
+static int	*get_rooms(int n)
+{
+	int	*tr;
+	int	i;
+
+	tr = (int *)malloc(sizeof(int) * n);
+	i = 0;
+	while (i < n)
+	{
+		tr[i] = 0;
+		i++;
+	}
+	return (tr);
+}
+
+void		delete_generic(void *content, size_t content_size)
 {
 	free(content);
 	content_size = 0;
@@ -30,7 +45,7 @@ t_rooms	*new_rooms(void)
 	return (tr);
 }
 
-void	add_rooms_to_array(t_rooms **rooms, int *start, int *end)
+void		add_rooms_to_array(t_rooms **rooms, int *start, int *end)
 {
 	t_rooms	*r;
 	t_list	*j;
@@ -43,10 +58,7 @@ void	add_rooms_to_array(t_rooms **rooms, int *start, int *end)
 	j = r->room_name_list;
 	while (i < r->num_of_rooms)
 	{
-		r->paths[i] = (int *)malloc(r->num_of_rooms);
-		for (int j = 0; j < r->num_of_rooms; j++) {
-			r->paths[i][j] = 0;
-		}
+		r->paths[i] = get_rooms(r->num_of_rooms);
 		r->room_names[i] = ft_strdup((char *)j->content);
 		j = j->next;
 		i++;
@@ -58,7 +70,7 @@ void	add_rooms_to_array(t_rooms **rooms, int *start, int *end)
 	*end = r->num_of_rooms - (1 + *end);
 }
 
-void	free_rooms(t_rooms *rooms)
+void		free_rooms(t_rooms *rooms)
 {
 	int	i;
 
