@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 10:20:08 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 13:18:22 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 19:08:45 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	get_index(char *name, t_rooms *rooms)
 
 	i = 0;
 	names = rooms->room_names;
-	while (i)
+	while (names[i])
 	{
 		if (ft_strequ(names[i], name))
 			return (i);

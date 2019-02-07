@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:30:22 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 14:18:25 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 19:10:00 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ static int	will_continue(char **line)
 	return (1);
 }
 
-static void	add_links(t_rooms **rooms, char *fl)
+static void	add_links(t_rooms **rooms, char *fl, int *start, int *end)
 {
 	char	*line;
 
-	add_rooms_to_array(rooms);
+	add_rooms_to_array(rooms, start, end);
+	printf("%d, %d\n", *start, *end);
 	add_link_to_list(rooms, fl);
 	while (will_continue(&line))
 		add_link_to_list(rooms, line);
@@ -67,7 +68,7 @@ void		add_rooms(t_rooms **rooms, int *start, int *end)
 		gnl(&line);
 		if (ft_strchr(line, '-') != NULL)
 		{
-			add_links(rooms, line);
+			add_links(rooms, line, start, end);
 			break ;
 		}
 		if (ft_strequ("##start", line))

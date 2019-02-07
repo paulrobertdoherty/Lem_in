@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 14:20:16 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 18:53:05 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static void	print_ant(t_ant *ant, t_rooms *rooms)
 	ft_putchar(' ');
 }
 
-static void	move_ants(t_list *ants, t_rooms *rooms, int *can_continue)
+static void	move_ants(t_list **ants, t_rooms *rooms, int *can_continue)
 {
 	t_list	*i;
 	t_ant	*current;
 
-	i = ants;
+	i = *ants;
 	*can_continue = 0;
 	while (i)
 	{
@@ -48,15 +48,17 @@ static void	move_ants(t_list *ants, t_rooms *rooms, int *can_continue)
 	}
 }
 
-static int	add_ants(t_list *paths, t_list *ant_list, int ants, int *ants_left)
+static int	add_ants(t_list *paths, t_list **ant_list, int ants, int *ants_left)
 {
 	t_list	*i;
 	t_ant	*ta;
 	t_list	*tal;
+	int		tr;
 
 	if (*ants_left < 1)
-		return (1);
+		return (0);
 	i = paths;
+	tr = 0;
 	while (i && *ants_left >= 1)
 	{
 		ta = (t_ant *)malloc(sizeof(t_ant));
@@ -65,12 +67,12 @@ static int	add_ants(t_list *paths, t_list *ant_list, int ants, int *ants_left)
 		tal = (t_list *)malloc(sizeof(t_list));
 		tal->content = ta;
 		tal->content_size = sizeof(ta);
-		ft_lstadd(&ant_list, tal);
+		ft_lstadd(ant_list, tal);
 		(*ants_left)--;
-		return (1);
+		tr = 1;
 		i = i->next;
 	}
-	return (0);
+	return (tr);
 }
 
 static void	delete_paths(void *content, size_t content_size)
@@ -94,14 +96,14 @@ void		print_ants(int ants, int start, int end, t_rooms *rooms)
 	paths = get_paths(rooms, start, end, ants);
 	if (!paths)
 		return ;
-	sort_paths(paths);
+	//sort_paths(paths);
 	ant_list = NULL;
 	can_continue = 1;
 	ants_left = ants;
 	while (can_continue)
 	{
-		move_ants(ant_list, rooms, &can_continue);
-		can_continue = add_ants(paths, ant_list, ants, &ants_left)
+		move_ants(&ant_list, rooms, &can_continue);
+		can_continue = add_ants(paths, &ant_list, ants, &ants_left)
 					|| can_continue;
 		ft_putchar('\n');
 	}

@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 14:08:14 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 20:29:14 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,19 @@ static void		*get_int_copy(int n)
 t_list			*get_paths(t_rooms *rooms, int start, int end, int ants)
 {
 	t_list	*tr = NULL;
-	int	c = end;
-	while (c != start) {
+	int	c = start;
+	rooms->paths[start][start] = 1;
+	while (c != end) {
 		ft_lstadd(&tr, new_list(get_int_copy(c)));
 		for (int i = 0; i < rooms->num_of_rooms; i++) {
-			if (rooms->paths[c])
+			if (rooms->paths[c][i] && !(rooms->paths[i][i])) {
+				rooms->paths[i][i] = 1;
 				c = i;
+				break ;
+			}
 		}
 	}
 	ft_lstadd(&tr, new_list(get_int_copy(c)));
 	ants = 0;
-	return tr;
+	return new_list(tr);
 }

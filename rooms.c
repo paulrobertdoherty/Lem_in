@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 18:48:50 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 14:18:16 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 19:00:21 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_rooms	*new_rooms(void)
 	return (tr);
 }
 
-void	add_rooms_to_array(t_rooms **rooms)
+void	add_rooms_to_array(t_rooms **rooms, int *start, int *end)
 {
 	t_rooms	*r;
 	t_list	*j;
@@ -41,9 +41,12 @@ void	add_rooms_to_array(t_rooms **rooms)
 	r->room_names = (char **)malloc(sizeof(int *) * r->num_of_rooms);
 	i = 0;
 	j = r->room_name_list;
-	while (i)
+	while (i < r->num_of_rooms)
 	{
-		r->paths[i] = (int *)ft_memalloc(r->num_of_rooms);
+		r->paths[i] = (int *)malloc(r->num_of_rooms);
+		for (int j = 0; j < r->num_of_rooms; j++) {
+			r->paths[i][j] = 0;
+		}
 		r->room_names[i] = ft_strdup((char *)j->content);
 		j = j->next;
 		i++;
@@ -51,6 +54,8 @@ void	add_rooms_to_array(t_rooms **rooms)
 	r->room_names[i] = NULL;
 	ft_lstdel(&(r->room_name_list), &delete_generic);
 	r->room_name_list = NULL;
+	*start = r->num_of_rooms - (1 + *start);
+	*end = r->num_of_rooms - (1 + *end);
 }
 
 void	free_rooms(t_rooms *rooms)

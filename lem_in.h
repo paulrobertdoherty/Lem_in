@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:40 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 14:18:05 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/06 16:12:50 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	sort_paths(t_list *paths);
 void	send_error(int b);
 void	delete_generic(void *content, size_t content_size);
 t_rooms	*new_rooms(void);
-void	add_rooms_to_array(t_rooms **rooms);
+void	add_rooms_to_array(t_rooms **rooms, int *start, int *end);
 void	free_rooms(t_rooms *rooms);
 
 #endif
