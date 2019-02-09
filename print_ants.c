@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/07 09:15:11 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/09 14:20:24 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		print_ants(int ants, int start, int end, t_rooms *rooms)
 
 	if (!ants)
 		return ;
-	paths = get_paths(rooms, start, end, ants);
+	paths = get_paths(rooms, start, end);
 	if (!paths)
 		return ;
 	sort_paths(paths);

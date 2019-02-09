@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/08 08:50:51 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/09 15:43:29 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	can_continue(t_list *paths, int start, int path_count)
 	return (1);
 }
 
-t_list		*get_paths(t_rooms *rooms, int start, int end, int ants)
+t_list		*get_paths(t_rooms *rooms, int start, int end)
 {
 	t_list	*paths;
 

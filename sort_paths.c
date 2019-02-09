@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:13:12 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/06 14:20:31 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/08 16:40:24 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,25 @@ static void	merge_sort(t_list **paths_arr, int s, int e)
 	}
 }
 
-void		sort_paths(t_list *paths)
+void		sort_paths(t_list **paths)
 {
 	t_list	**paths_arr;
 	t_list	*i;
 	int		j;
 	int		size;
 
-	paths_arr = ft_lst_to_array(paths, &size);
+	if (!(*paths))
+		return ;
+	paths_arr = ft_lst_to_array(*paths, &size);
 	merge_sort(paths_arr, 0, size - 1);
-	i = paths;
-	j = 0;
-	while (i)
+	i = paths_arr[0];
+	j = 1;
+	while (j < size)
 	{
-		i->content = paths_arr[j]->content;
-		i = paths->next;
+		i->next = paths_arr[j];
+		i = i->next;
 		j++;
 	}
+	i->next = NULL;
 	free(paths_arr);
 }
