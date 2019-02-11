@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 08:51:35 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/10 14:26:18 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/11 13:32:09 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ static t_list	*get_copy(t_list *elem)
 {
 	t_list	*tr;
 	int		content;
+	int		*cp;
 
 	if (!elem)
 		return (NULL);
 	content = gfp((int *)elem->content);
+	cp = (int *)malloc(sizeof(int));
+	*cp = content;
 	tr = (t_list *)malloc(sizeof(t_list));
-	tr->content = (int *)malloc(sizeof(int));
-	*(tr->content) = content;
+	tr->content = cp;
 	tr->content_size = elem->content_size;
 	tr->next = elem->next;
 	return (tr);
@@ -60,7 +62,7 @@ t_list			*grow_path(t_list **paths, t_list *path, t_rooms *rooms)
 		{
 			ta = new_list(j);
 			ta->next = path;
-			ta->content_size = i->content_size + 1;
+			ta->content_size = path->content_size + 1;
 			tr = copy_path(tr, paths, ta);
 		}
 		j++;

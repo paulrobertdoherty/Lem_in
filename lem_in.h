@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:40 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/10 18:29:21 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/11 13:54:24 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,12 @@ t_list	*new_list(int n);
 int		gfp(int *p);
 t_list	*grow_path(t_list **paths, t_list *path, t_rooms *rooms);
 void	delete_paths(void *content, size_t content_size);
+void	set_visiting_to_visited(t_rooms *rooms, t_list *paths);
+void	grow_paths(t_rooms *rooms, t_list **paths);
+void	remove_bad_paths(t_list **paths, int iae, int end, int epaths);
+t_list	*grow_path(t_list **paths, t_list *path, t_rooms *rooms);
+t_list	*get_last_path(t_list **paths, int end_paths);
+t_list	*move_to_next(t_list *current);
+size_t	num_of_shared_rooms(t_list *current, t_list **paths, int end);
 
 #endif

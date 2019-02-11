@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/10 15:04:28 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/11 13:06:57 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int			gfp(int *p)
 static int	can_continue(t_list *paths, int start, int path_count)
 {
 	t_list	*i;
-	int		*current;
+	int		current;
 	int		start_paths;
 
 	i = paths;
 	start_paths = 0;
 	while (i)
 	{
-		current = (int *)((t_list *)i->content)->content;
+		current = gfp((int *)((t_list *)i->content)->content);
 		if (current == start)
 			start_paths++;
 		if (start_paths == path_count)
@@ -78,8 +78,8 @@ t_list		*get_paths(t_rooms *rooms, int start, int end)
 	paths = (t_list *)malloc(sizeof(t_list));
 	paths->content = new_list(end);
 	paths->next = NULL;
-	end_paths = get_end_paths(end);
-	while (can_continue(paths, start))
+	end_paths = get_end_paths(rooms, end);
+	while (can_continue(paths, start, end_paths))
 	{
 		set_visiting_to_visited(rooms, paths);
 		grow_paths(rooms, &paths);
