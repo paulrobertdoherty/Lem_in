@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/09 14:20:24 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/09 19:33:36 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	add_ants(t_list *paths, t_list **ant_list, int ants, int *ants_left)
 	return (tr);
 }
 
-static void	delete_paths(void *content, size_t content_size)
+void		delete_paths(void *content, size_t content_size)
 {
 	t_list	*ts;
 

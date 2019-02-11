@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/09 15:43:29 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/10 15:04:28 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_list		*new_list(int n)
 	tr = (t_list *)malloc(sizeof(t_list));
 	tr->content = ta;
 	tr->content_size = 1;
+	tr->next = NULL;
 	return tr;
 }
 
@@ -53,17 +54,37 @@ static int	can_continue(t_list *paths, int start, int path_count)
 	return (1);
 }
 
+static int	get_end_paths(t_rooms *rooms, int end)
+{
+	int	i;
+	int	tr;
+
+	i = 0;
+	tr = 0;
+	while (i < rooms->num_of_rooms)
+	{
+		if (rooms->paths[end][i] && i != end)
+			tr++;
+		i++;
+	}
+	return (tr);
+}
+
 t_list		*get_paths(t_rooms *rooms, int start, int end)
 {
 	t_list	*paths;
+	int		end_paths;
 
-	paths = new_list(end);
+	paths = (t_list *)malloc(sizeof(t_list));
+	paths->content = new_list(end);
+	paths->next = NULL;
+	end_paths = get_end_paths(end);
 	while (can_continue(paths, start))
 	{
 		set_visiting_to_visited(rooms, paths);
 		grow_paths(rooms, &paths);
-		remove_bad_paths(rooms, paths, 0);
+		remove_bad_paths(&paths, 0, end, end_paths);
 	}
-	remove_bad_paths(rooms, paths, 1);
+	remove_bad_paths(&paths, 1, end, end_paths);
 	return (paths);
 }

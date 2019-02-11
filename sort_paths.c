@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:13:12 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/08 16:40:24 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/11 11:02:28 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	compare(t_list **paths_arr, int i, int j)
 
 	first = paths_arr[i]->content_size;
 	second = paths_arr[j]->content_size;
-	return (first > second);
+	return (first < second);
 }
 
 static void	combine(t_list **paths_arr, int s, int m, int e)
@@ -36,14 +36,10 @@ static void	combine(t_list **paths_arr, int s, int m, int e)
 	k = 0;
 	while (k < 1 + e - s)
 	{
-		if (compare(paths_arr, i, j))
-			temp[k++] = paths_arr[j];
+		if (i <= m && (j > e || compare(paths_arr, i, j)))
+			temp[k++] = paths_arr[i++];
 		else
-			temp[k++] = paths_arr[i];
-		if (i < m)
-			i++;
-		if (j < e)
-			j++;	
+			temp[k++] = paths_arr[j++];
 	}
 	i = s;
 	k = 0;
@@ -76,6 +72,7 @@ void		sort_paths(t_list **paths)
 		return ;
 	paths_arr = ft_lst_to_array(*paths, &size);
 	merge_sort(paths_arr, 0, size - 1);
+	*paths = paths_arr[0];
 	i = paths_arr[0];
 	j = 1;
 	while (j < size)
