@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:02:02 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/11 13:53:38 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/11 14:05:54 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	remove_bad_paths(t_list **paths, int is_at_end,
 	{
 		content = (t_list *)i->content;
 		i->content_size = num_of_shared_rooms(content, paths, end);
-		i->content_size *= content->content_size;
 		i = i->next;
 	}
 	sort_paths(paths);
