@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/11 14:13:47 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/13 13:49:49 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_list		*new_list(int n)
 	tr->content = ta;
 	tr->content_size = 1;
 	tr->next = NULL;
-	return tr;
+	return (tr);
 }
 
 /*
@@ -81,7 +81,6 @@ t_list		*get_paths(t_rooms *rooms, int start, int end)
 	end_paths = get_end_paths(rooms, end);
 	while (can_continue(paths, start, end_paths))
 	{
-		set_visiting_to_visited(rooms, paths);
 		grow_paths(rooms, &paths);
 		remove_bad_paths(&paths, 0, end, end_paths);
 	}
