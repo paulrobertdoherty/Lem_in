@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 18:48:50 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/07 08:27:10 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/16 12:10:31 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		add_rooms_to_array(t_rooms **rooms, int *start, int *end)
 
 	r = *rooms;
 	r->paths = (int **)malloc(sizeof(int *) * r->num_of_rooms);
-	r->room_names = (char **)malloc(sizeof(int *) * r->num_of_rooms);
+	r->room_names = (char **)malloc(sizeof(int *) * (1 + r->num_of_rooms));
 	i = 0;
 	j = r->room_name_list;
 	while (i < r->num_of_rooms)

@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:36:23 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/13 13:49:39 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/16 13:49:13 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ t_list			*move_to_next(t_list *current)
 	while (i)
 	{
 		if (last->content_size < i->content_size)
-			return (i);
+			return (last);
 		last = i;
 		i = i->next;
 	}
-	return (i);
+	return (last);
 }

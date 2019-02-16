@@ -6,13 +6,13 @@
 #    By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/30 16:29:23 by pdoherty          #+#    #+#              #
-#    Updated: 2019/02/13 12:52:21 by pdoherty         ###   ########.fr        #
+#    Updated: 2019/02/16 12:10:04 by pdoherty         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem_in
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 SRC = *.c
 
@@ -23,7 +23,7 @@ all: $(NAME)
 $(NAME):
 	@make -C libft
 	@gcc $(FLAGS) -c $(SRC)
-	@gcc -o $(NAME) $(OBJ) libft/libft.a
+	@gcc $(FLAGS) -o $(NAME) $(OBJ) libft/libft.a
 
 clean:
 	@rm -f $(OBJ)
@@ -34,3 +34,8 @@ fclean: clean
 	@make -C libft fclean
 
 re: fclean all
+
+asan: fclean
+	@make -C libft
+	@gcc $(FLAGS) -g -fsanitize=address -c $(SRC)
+	@gcc $(FLAGS) -g -fsanitize=address -o $(NAME) $(OBJ) -L ./libft -lft
