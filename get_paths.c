@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/16 18:14:39 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/17 15:34:37 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,20 @@ t_list		*get_paths(t_rooms *rooms, int start, int end)
 {
 	t_list	*paths;
 	int		end_paths;
+	int		*sae;
 
 	paths = (t_list *)malloc(sizeof(t_list));
 	paths->content = new_list(end);
 	paths->next = NULL;
 	end_paths = get_end_paths(rooms, end);
+	sae = get_sae(start, end);
 	while (can_continue(paths, start, end_paths))
 	{
 		grow_paths(rooms, &paths, start);
-		remove_bad_paths(&paths, 0, end, end_paths);
+		remove_bad_paths(&paths, 0, sae, end_paths);
 	}
-	remove_bad_paths(&paths, 1, end, end_paths);
+	remove_bad_paths(&paths, 1, sae, end_paths);
 	fix_paths(&paths);
+	free(sae);
 	return (paths);
 }

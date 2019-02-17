@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:40 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/16 16:38:55 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/17 09:09:35 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int		gfp(int *p);
 t_list	*grow_path(t_list **paths, t_list *path, t_rooms *rooms);
 void	delete_paths(void *content, size_t content_size);
 void	grow_paths(t_rooms *rooms, t_list **paths, int start);
-void	remove_bad_paths(t_list **paths, int iae, int end, int epaths);
+void	remove_bad_paths(t_list **paths, int is_at_end, int *sae, int epaths);
 t_list	*grow_path(t_list **paths, t_list *path, t_rooms *rooms);
-t_list	*get_last_path(t_list **paths, int end_paths);
-t_list	*move_to_next(t_list *current);
-size_t	num_of_shared_rooms(t_list *current, t_list **paths, int end);
+t_list	*move_to_next(t_list *current, int is_at_end, int end_paths);
+size_t	num_of_shared_rooms(t_list *current, t_list **paths, int *sae);
 void	fix_paths(t_list **paths);
+int		*get_sae(int start, int end);
 
 #endif

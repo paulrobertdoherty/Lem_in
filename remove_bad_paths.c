@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:36:23 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/16 13:49:13 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/17 15:39:32 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static size_t	count_in_path(t_list *path, int room)
 }
 
 //TODO: Improve with dynamic programming
-size_t			num_of_shared_rooms(t_list *current, t_list **paths, int end)
+size_t			num_of_shared_rooms(t_list *current, t_list **paths, int *sae)
 {
 	size_t	rooms;
 	t_list	*i;
@@ -40,11 +40,11 @@ size_t			num_of_shared_rooms(t_list *current, t_list **paths, int end)
 	while (i)
 	{
 		cu = gfp((int *)i->content);
-		j = (cu != end) ? *paths : NULL;
+		j = (cu != sae[0] && cu != sae[1]) ? *paths : NULL;
 		while (j)
 		{
 			c = (t_list *)j->content;
-			if (c != i)
+			if (c != current)
 				rooms += count_in_path(c, cu);
 			j = j->next;
 		}
@@ -53,36 +53,23 @@ size_t			num_of_shared_rooms(t_list *current, t_list **paths, int end)
 	return (rooms);
 }
 
-t_list			*get_last_path(t_list **paths, int end_paths)
-{
-	t_list	*i;
-	int		j;
-
-	i = *paths;
-	j = 0;
-	while (i)
-	{
-		if (j == end_paths - 1)
-			return (i);
-		j++;
-		i = i->next;
-	}
-	return (i);
-}
-
-t_list			*move_to_next(t_list *current)
+t_list			*move_to_next(t_list *current, int is_at_end, int end_paths)
 {
 	t_list	*i;
 	t_list	*last;
+	int		j;
 
 	last = current;
 	i = current->next;
+	j = 0;
 	while (i)
 	{
-		if (last->content_size < i->content_size)
+		if ((is_at_end && j == end_paths) ||
+			last->content_size < i->content_size)
 			return (last);
 		last = i;
 		i = i->next;
+		j++;
 	}
 	return (last);
 }
