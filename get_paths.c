@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/16 13:22:15 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/16 16:37:32 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	can_continue(t_list *paths, int start, int path_count)
 		current = gfp((int *)((t_list *)i->content)->content);
 		if (current == start)
 			start_paths++;
-		if (start_paths == path_count)
+		if (start_paths >= path_count)
 			return (0);
 		i = i->next;
 	}
@@ -81,8 +81,9 @@ t_list		*get_paths(t_rooms *rooms, int start, int end)
 	end_paths = get_end_paths(rooms, end);
 	while (can_continue(paths, start, end_paths))
 	{
-		grow_paths(rooms, &paths);
+		grow_paths(rooms, &paths, start);
 		remove_bad_paths(&paths, 0, end, end_paths);
+		sleep(1);
 	}
 	remove_bad_paths(&paths, 1, end, end_paths);
 	fix_paths(&paths);

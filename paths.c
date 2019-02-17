@@ -6,20 +6,23 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:02:02 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/16 14:07:22 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/16 16:40:27 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	grow_paths(t_rooms *rooms, t_list **paths)
+void	grow_paths(t_rooms *rooms, t_list **paths, int start)
 {
 	t_list	*i;
+	t_list	*current;
 
 	i = *paths;
 	while (i)
 	{
-		i->content = grow_path(paths, (t_list *)i->content, rooms);
+		current = (t_list *)i->content;
+		if (gfp((int *)current->content) != start)
+			i->content = grow_path(paths, current, rooms);
 		i = i->next;
 	}
 }

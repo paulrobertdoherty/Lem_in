@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 08:51:35 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/15 15:10:19 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/16 16:38:46 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,16 @@ t_list			*grow_path(t_list **paths, t_list *path, t_rooms *rooms)
 	t_list	*tr;
 	t_list	*ta;
 	int		c;
+	int		last;
 	int		j;
 
 	tr = NULL;
 	c = gfp((int *)path->content);
+	last = path->next != NULL ? gfp((int *)path->next->content) : -1;
 	j = 0;
 	while (j < rooms->num_of_rooms)
 	{
-		if (j != c && rooms->paths[c][j])
+		if (j != c && rooms->paths[c][j] && j != last)
 		{
 			ta = new_list(j);
 			ta->next = path;
