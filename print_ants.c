@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/11 13:54:41 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/16 18:14:31 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		print_ants(int ants, int start, int end, t_rooms *rooms)
 		move_ants(&ant_list, rooms, &can_continue);
 		can_continue = add_ants(paths, &ant_list, ants, &ants_left)
 					|| can_continue;
-		ft_putchar((can_continue && ants_left < ants - 1) ? '\n' : '\0');
+		ft_putchar('\n');
 	}
 	ft_lstdel(&paths, &delete_paths);
 	ft_lstdel(&ant_list, &delete_generic);
