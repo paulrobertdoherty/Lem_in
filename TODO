@@ -1,3 +1,0 @@
-REMOVE THE sleep(1) IN GET_PATHS BEFORE PUSHING TO VOGSPHERE OR TESTING SPEED
-	We'lll probably do it, but imagine if we didn't...
-Make paths with multiple connections to the end, but only one path, work

@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 17:44:24 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/07 09:41:15 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/18 10:06:03 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	send_error(int b)
 {
 	if (b)
 	{
-		perror("ERROR\n");
+		write(2, "ERROR\n", 6);
 		exit(0);
 	}
 }
