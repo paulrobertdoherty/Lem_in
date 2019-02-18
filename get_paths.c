@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/17 15:34:37 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/17 19:56:53 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,26 @@ int			gfp(int *p)
 	return (*p);
 }
 
-static int	can_continue(t_list *paths, int start, int path_count)
+static int	can_continue(t_list *paths, int start, int end_paths)
 {
 	t_list	*i;
 	int		current;
-	int		start_paths;
+	int		paths_at_start;
+	int		paths_not_at_start;
 
 	i = paths;
-	start_paths = 0;
+	paths_at_start = 0;
+	paths_not_at_start = 0;
 	while (i)
 	{
 		current = gfp((int *)((t_list *)i->content)->content);
 		if (current == start)
-			start_paths++;
-		if (start_paths >= path_count)
-			return (0);
+			paths_at_start++;
+		else
+			paths_not_at_start++;
 		i = i->next;
 	}
-	return (1);
+	return (paths_at_start < end_paths && paths_not_at_start);
 }
 
 static int	get_end_paths(t_rooms *rooms, int end)

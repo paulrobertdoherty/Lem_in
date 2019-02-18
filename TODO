@@ -1,5 +1,3 @@
 REMOVE THE sleep(1) IN GET_PATHS BEFORE PUSHING TO VOGSPHERE OR TESTING SPEED
 	We'lll probably do it, but imagine if we didn't...
-It works pretty well, as far as I know
-	There's an issue where the paths keep growing after they've reached the start,
-		or at least that's what I think is happening. I'll debug it later.
+Make paths with multiple connections to the end, but only one path, work
