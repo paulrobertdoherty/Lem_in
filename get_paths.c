@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/18 09:24:23 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/19 16:24:11 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_list		*get_paths(t_rooms *rooms, int start, int end)
 	while (can_continue(paths, start, end_paths))
 	{
 		grow_paths(rooms, &paths, start);
+		delete_dead_ends(&paths);
 		remove_bad_paths(&paths, 0, sae, end_paths);
 	}
 	remove_bad_paths(&paths, 1, sae, end_paths);

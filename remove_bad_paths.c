@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:36:23 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/17 15:39:32 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:22:57 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,19 @@ static size_t	count_in_path(t_list *path, int room)
 size_t			num_of_shared_rooms(t_list *current, t_list **paths, int *sae)
 {
 	size_t	rooms;
-	t_list	*i;
 	t_list	*j;
 	t_list	*c;
 	int		cu;
 
 	rooms = 0;
-	i = current;
-	while (i)
+	cu = gfp((int *)current->content);
+	j = (cu != sae[0] && cu != sae[1]) ? *paths : NULL;
+	while (j)
 	{
-		cu = gfp((int *)i->content);
-		j = (cu != sae[0] && cu != sae[1]) ? *paths : NULL;
-		while (j)
-		{
-			c = (t_list *)j->content;
-			if (c != current)
-				rooms += count_in_path(c, cu);
-			j = j->next;
-		}
-		i = i->next;
+		c = (t_list *)j->content;
+		if (c != current)
+			rooms += count_in_path(c, cu);
+		j = j->next;
 	}
 	return (rooms);
 }
