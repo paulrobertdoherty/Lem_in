@@ -103,9 +103,9 @@ void		print_ants(int ants, int start, int end, t_rooms *rooms)
 	while (can_continue)
 	{
 		move_ants(&ant_list, rooms, &can_continue);
+		ft_putchar(ant_list && can_continue ? '\n' : '\0');
 		can_continue = add_ants(paths, &ant_list, ants, &ants_left)
 					|| can_continue;
-		ft_putchar('\n');
 	}
 	ft_lstdel(&paths, &delete_paths);
 	ft_lstdel(&ant_list, &delete_generic);
