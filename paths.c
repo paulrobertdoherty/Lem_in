@@ -101,7 +101,7 @@ void		find_shared_rooms(t_list **paths, int start, int end,
 	{
 		current = (t_list *)i->content;
 		if (has_shared_room(paths, current, rooms))
-			current->content_size = 0;
+			i->content_size = 0;
 		i = i->next;
 	}
 	start = 0;
