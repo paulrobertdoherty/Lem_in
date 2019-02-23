@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:02:02 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/19 20:22:59 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/22 20:16:58 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		grow_paths(t_rooms *rooms, t_list **paths, int start)
 				paths_grown++;
 			}
 			else
-				((t_list *)i->content)->content_size = 0;
+				i->content_size = 0;
 		}
 		i = i->next;
 	}
@@ -53,19 +53,17 @@ static void	delete_current(t_list **paths, t_list *current, t_list **i,
 		(*last)->next = *i;
 }
 
-void		delete_dead_ends(t_list **paths)
+void		delete_dead_paths(t_list **paths)
 {
 	t_list	*i;
 	t_list	*last;
-	t_list	*current;
 
 	i = *paths;
 	last = NULL;
 	while (i)
 	{
-		current = (t_list *)i->content;
-		if (!current->content_size)
-			delete_current(paths, current, &i, &last);
+		if (!i->content_size)
+			delete_current(paths, (t_list *)i->content, &i, &last);
 		else
 		{
 			last = i;
@@ -75,23 +73,37 @@ void		delete_dead_ends(t_list **paths)
 	send_error(*paths == NULL);
 }
 
-void		remove_bad_paths(t_list **paths, int is_at_end, int *sae,
-			int end_paths)
+void		find_start_paths(t_list **paths, int start, int end,
+			t_rooms *rooms)
 {
 	t_list	*i;
-	t_list	*next;
-	t_list	*content;
+	t_list	*current;
 
 	i = *paths;
 	while (i)
 	{
-		content = (t_list *)i->content;
-		i->content_size = num_of_shared_rooms(content, paths, sae);
+		current = (t_list *)i->content;
+		if (i->content_size && gfp((int *)current->content) == start)
+			find_start_for_path(paths, current, start, rooms);
 		i = i->next;
 	}
-	sort_paths(paths);
-	i = move_to_next(*paths, is_at_end, end_paths);
-	next = i->next;
-	ft_lstdel(&next, &delete_paths);
-	i->next = NULL;
+	end = 0;
+}
+
+void		find_shared_rooms(t_list **paths, int start, int end,
+			t_rooms *rooms)
+{
+	t_list	*i;
+	t_list	*current;
+
+	i = *paths;
+	while (i)
+	{
+		current = (t_list *)i->content;
+		if (has_shared_room(paths, current, rooms))
+			current->content_size = 0;
+		i = i->next;
+	}
+	start = 0;
+	end = 0;
 }

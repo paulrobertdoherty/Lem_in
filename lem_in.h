@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:40 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/18 20:00:19 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/22 20:15:53 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ t_list	*grow_path(t_list **paths, t_list *path, t_rooms *rooms);
 void	delete_paths(void *content, size_t content_size);
 void	grow_paths(t_rooms *rooms, t_list **paths, int start);
 void	delete_dead_ends(t_list **paths);
-void	remove_bad_paths(t_list **paths, int is_at_end, int *sae, int epaths);
+void	delete_dead_paths(t_list **paths);
+void	find_start_paths(t_list **paths, int s, int e, t_rooms *rooms);
+void	find_shared_rooms(t_list **paths, int s, int e, t_rooms *rooms);
 t_list	*grow_path(t_list **paths, t_list *path, t_rooms *rooms);
-t_list	*move_to_next(t_list *current, int is_at_end, int end_paths);
-size_t	num_of_shared_rooms(t_list *current, t_list **paths, int *sae);
+void	find_start_for_path(t_list **paths, t_list *path, int s, t_rooms *r);
+int		has_shared_room(t_list **paths, t_list *path, t_rooms *rooms);
 void	fix_paths(t_list **paths);
-int		*get_sae(int start, int end);
+void	delete_list(t_list *list);
+void	delete_non_starts(t_list **paths, int start);
 
 #endif

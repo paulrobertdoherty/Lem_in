@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 08:51:35 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/18 09:57:41 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/22 20:14:41 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static t_list	*copy_path(t_list *tr, t_list **paths, t_list *ta)
 		return (ta);
 	to_add = (t_list *)malloc(sizeof(t_list));
 	to_add->content = ta;
+	to_add->content_size = 1;
 	i = ta;
 	while (i)
 	{
@@ -68,6 +69,8 @@ t_list			*grow_path(t_list **paths, t_list *path, t_rooms *rooms)
 			ta = new_list(j);
 			ta->next = path;
 			ta->content_size = path->content_size + 1;
+			if (tr)
+				rooms->paths[j][j] = 1;
 			tr = copy_path(tr, paths, ta);
 		}
 		j++;
