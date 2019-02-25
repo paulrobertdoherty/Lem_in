@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:02:02 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/22 20:16:58 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/25 07:38:02 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ void		delete_dead_paths(t_list **paths)
 	send_error(*paths == NULL);
 }
 
-void		find_start_paths(t_list **paths, int start, int end,
-			t_rooms *rooms)
+void		find_start_paths(t_list **paths, int start, t_rooms *rooms)
 {
 	t_list	*i;
 	t_list	*current;
@@ -84,14 +83,12 @@ void		find_start_paths(t_list **paths, int start, int end,
 	{
 		current = (t_list *)i->content;
 		if (i->content_size && gfp((int *)current->content) == start)
-			find_start_for_path(paths, current, start, rooms);
+			find_start_for_path(paths, i, start, rooms);
 		i = i->next;
 	}
-	end = 0;
 }
 
-void		find_shared_rooms(t_list **paths, int start, int end,
-			t_rooms *rooms)
+void		find_shared_rooms(t_list **paths, int start)
 {
 	t_list	*i;
 	t_list	*current;
@@ -100,10 +97,9 @@ void		find_shared_rooms(t_list **paths, int start, int end,
 	while (i)
 	{
 		current = (t_list *)i->content;
-		if (has_shared_room(paths, current, rooms))
+		if (has_shared_path(paths, current) &&
+			has_shared_room(paths, current, start))
 			i->content_size = 0;
 		i = i->next;
 	}
-	start = 0;
-	end = 0;
 }

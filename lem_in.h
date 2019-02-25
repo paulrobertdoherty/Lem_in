@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:40 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/22 20:15:53 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/25 07:18:37 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "libft/libft.h"
 # include "lem_in_types.h"
-
-//TODO: Delete this
-#include <stdio.h>
 
 void	gnl(char **line);
 void	add_rooms(t_rooms **rooms, int *start, int *end);
@@ -39,13 +36,14 @@ void	delete_paths(void *content, size_t content_size);
 void	grow_paths(t_rooms *rooms, t_list **paths, int start);
 void	delete_dead_ends(t_list **paths);
 void	delete_dead_paths(t_list **paths);
-void	find_start_paths(t_list **paths, int s, int e, t_rooms *rooms);
-void	find_shared_rooms(t_list **paths, int s, int e, t_rooms *rooms);
-t_list	*grow_path(t_list **paths, t_list *path, t_rooms *rooms);
+void	find_start_paths(t_list **paths, int start, t_rooms *rooms);
+void	find_shared_rooms(t_list **paths, int start);
 void	find_start_for_path(t_list **paths, t_list *path, int s, t_rooms *r);
-int		has_shared_room(t_list **paths, t_list *path, t_rooms *rooms);
+int		has_shared_room(t_list **paths, t_list *path, int start);
 void	fix_paths(t_list **paths);
 void	delete_list(t_list *list);
 void	delete_non_starts(t_list **paths, int start);
+int		has_shared_path(t_list **paths, t_list *current);
+void	remove_long_paths(t_list **paths, int ants);
 
 #endif

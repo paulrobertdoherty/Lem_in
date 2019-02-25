@@ -6,13 +6,12 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 10:20:08 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/07 08:25:39 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/24 14:14:33 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-//TODO: Use a hashmap here
 static int	get_index(char *name, t_rooms *rooms)
 {
 	int		i;

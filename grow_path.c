@@ -6,11 +6,13 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 08:51:35 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/22 20:14:41 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/25 07:26:56 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+#include <stdio.h>
 
 static t_list	*get_copy(t_list *elem)
 {

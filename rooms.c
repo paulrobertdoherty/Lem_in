@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 18:48:50 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/16 12:10:31 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/24 14:15:37 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		delete_generic(void *content, size_t content_size)
 	content_size = 0;
 }
 
-t_rooms	*new_rooms(void)
+t_rooms		*new_rooms(void)
 {
 	t_rooms	*tr;
 

@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/22 20:11:14 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/25 07:31:13 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_list		*new_list(int n)
 /*
 **An easy way to get an int from an int pointer. It's for aesthetics
 */
+
 int			gfp(int *p)
 {
 	return (*p);
@@ -40,19 +41,23 @@ static int	can_continue(t_list *paths, int start, int start_paths,
 	t_list	*i;
 	int		current;
 	int		paths_at_start;
+	int		paths_not_at_start;
 	int		min_paths;
 
 	i = paths;
 	paths_at_start = 0;
+	paths_not_at_start = 0;
 	min_paths = start_paths < end_paths ? start_paths : end_paths;
 	while (i)
 	{
 		current = gfp((int *)((t_list *)i->content)->content);
 		if (current == start)
 			paths_at_start++;
+		else
+			paths_not_at_start++;
 		i = i->next;
 	}
-	return (paths_at_start < min_paths);
+	return (paths_at_start < min_paths && paths_not_at_start);
 }
 
 static int	get_connecting_paths(t_rooms *rooms, int room)
@@ -87,9 +92,9 @@ t_list		*get_paths(t_rooms *rooms, int start, int end)
 	{
 		grow_paths(rooms, &paths, start);
 		delete_dead_paths(&paths);
-		find_start_paths(&paths, start, end, rooms);
+		find_start_paths(&paths, start, rooms);
 		delete_dead_paths(&paths);
-		find_shared_rooms(&paths, start, end, rooms);
+		find_shared_rooms(&paths, start);
 		delete_dead_paths(&paths);
 	}
 	delete_non_starts(&paths, start);

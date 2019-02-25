@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:30:22 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/07 07:00:38 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/24 15:30:03 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	add_links(t_rooms **rooms, char *fl, int *start, int *end)
 {
 	char	*line;
 
+	send_error(*start == -1 || *end == -1);
 	add_rooms_to_array(rooms, start, end);
 	add_link_to_list(rooms, fl);
 	while (will_continue(&line))
