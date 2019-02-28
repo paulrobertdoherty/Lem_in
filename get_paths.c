@@ -5,100 +5,79 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/05 21:50:43 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/25 07:31:13 by pdoherty         ###   ########.fr       */
+/*   Created: 2019/02/28 12:18:57 by pdoherty          #+#    #+#             */
+/*   Updated: 2019/02/28 15:10:05 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_list		*new_list(int n)
-{
-	t_list	*tr;
-	int		*ta;
-
-	ta = (int *)malloc(sizeof(int));
-	*ta = n;
-	tr = (t_list *)malloc(sizeof(t_list));
-	tr->content = ta;
-	tr->content_size = 1;
-	tr->next = NULL;
-	return (tr);
-}
-
-/*
-**An easy way to get an int from an int pointer. It's for aesthetics
-*/
-
-int			gfp(int *p)
+int				gfp(int *p)
 {
 	return (*p);
 }
 
-static int	can_continue(t_list *paths, int start, int start_paths,
-			int end_paths)
+static void		visit(int visiting, int last, t_rooms *rooms,
+				int *room_pointers)
 {
-	t_list	*i;
-	int		current;
-	int		paths_at_start;
-	int		paths_not_at_start;
-	int		min_paths;
-
-	i = paths;
-	paths_at_start = 0;
-	paths_not_at_start = 0;
-	min_paths = start_paths < end_paths ? start_paths : end_paths;
-	while (i)
-	{
-		current = gfp((int *)((t_list *)i->content)->content);
-		if (current == start)
-			paths_at_start++;
-		else
-			paths_not_at_start++;
-		i = i->next;
-	}
-	return (paths_at_start < min_paths && paths_not_at_start);
+	room_pointers[visiting] = last;
+	rooms->paths[visiting][visiting] = 1;
 }
 
-static int	get_connecting_paths(t_rooms *rooms, int room)
+static int		*get_room_pointers(t_rooms *rooms)
 {
+	int	*tr;
 	int	i;
-	int	tr;
 
+	tr = (int *)malloc(sizeof(int) * rooms->num_of_rooms);
 	i = 0;
-	tr = 0;
 	while (i < rooms->num_of_rooms)
 	{
-		if (rooms->paths[room][i] && i != room)
-			tr++;
+		tr[i] = i;
 		i++;
 	}
 	return (tr);
 }
 
-t_list		*get_paths(t_rooms *rooms, int start, int end)
+static t_list	*get_augmenting_path(t_rooms *rooms, int start, int end)
 {
-	t_list	*paths;
-	int		start_paths;
-	int		end_paths;
+	t_list	*path;
+	t_queue	*to_visit;
+	int		*room_pointers;
+	int		room;
+	t_list	*connecting_rooms;
 
-	paths = (t_list *)malloc(sizeof(t_list));
-	paths->content = new_list(end);
-	paths->content_size = 1;
-	paths->next = NULL;
-	start_paths = get_connecting_paths(rooms, start);
-	end_paths = get_connecting_paths(rooms, end);
-	while (can_continue(paths, start, start_paths, end_paths))
+	to_visit = new_t_queue();
+	push(to_visit, new_list(start));
+	room_pointers = get_room_pointers(rooms);
+	while (!is_empty(to_visit))
 	{
-		grow_paths(rooms, &paths, start);
-		delete_dead_paths(&paths);
-		find_start_paths(&paths, start, rooms);
-		delete_dead_paths(&paths);
-		find_shared_rooms(&paths, start);
-		delete_dead_paths(&paths);
+		room = gfp((int *)pop(to_visit));
+		connecting_rooms = get_connecting_rooms(room, rooms);
+		while (connecting_rooms)
+		{
+			visit(gfp((int *)connecting_rooms->content), room, rooms,
+					room_pointers);
+			push(to_visit, new_list(gfp((int *)connecting_rooms->content)));
+			connecting_rooms = connecting_rooms->next;
+		}
+		ft_lstdel(&connecting_rooms, &delete_generic);
 	}
-	delete_non_starts(&paths, start);
-	delete_dead_paths(&paths);
-	fix_paths(&paths);
-	return (paths);
+	path = get_path(rooms, end, room_pointers);
+	free(room_pointers);
+	return (path);
+}
+
+t_list			*get_paths(t_rooms *rooms, int start, int end)
+{
+	t_queue	*paths;
+	t_list	*paths_list;
+	t_list	*ta;
+
+	paths = new_t_queue();
+	while ((ta = get_augmenting_path(rooms, start, end)) != NULL)
+		push(paths, ta);
+	paths_list = peek(paths);
+	free(paths);
+	return (paths_list);
 }

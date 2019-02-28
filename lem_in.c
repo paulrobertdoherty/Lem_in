@@ -6,11 +6,24 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:31 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/24 15:26:13 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:09:49 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+t_list		*new_list(int i)
+{
+	t_list	*tr;
+	int		*hi;
+
+	tr = (t_list *)malloc(sizeof(t_list));
+	hi = (int *)malloc(sizeof(int));
+	*hi = i;
+	tr->content = hi;
+	tr->next = NULL;
+	return (tr);
+}
 
 static int	get_ants(void)
 {

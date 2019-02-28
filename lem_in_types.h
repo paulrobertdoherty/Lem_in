@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 15:54:55 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/07 16:09:49 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:45:13 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef struct	s_rooms
 	char		**room_names;
 	t_list		*room_name_list;
 }				t_rooms;
+
+typedef struct	s_queue
+{
+	t_list		*first;
+	t_list		*last;
+}				t_queue;
 
 typedef struct	s_ant
 {
