@@ -6,22 +6,22 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 12:18:57 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/28 15:10:05 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/28 20:59:20 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+#include <stdio.h>
 
 int				gfp(int *p)
 {
 	return (*p);
 }
 
-static void		visit(int visiting, int last, t_rooms *rooms,
-				int *room_pointers)
+static void		visit(int visiting, t_rooms *rooms)
 {
-	room_pointers[visiting] = last;
-	rooms->paths[visiting][visiting] = 1;
+	rooms->paths[visiting][visiting] = rooms->paths[visiting][visiting] | 1;
 }
 
 static int		*get_room_pointers(t_rooms *rooms)
@@ -52,18 +52,21 @@ static t_list	*get_augmenting_path(t_rooms *rooms, int start, int end)
 	room_pointers = get_room_pointers(rooms);
 	while (!is_empty(to_visit))
 	{
-		room = gfp((int *)pop(to_visit));
-		connecting_rooms = get_connecting_rooms(room, rooms);
+		room = gfp((int *)pop(to_visit)->content);
+		connecting_rooms = get_connecting_rooms(room, rooms, end);
 		while (connecting_rooms)
 		{
-			visit(gfp((int *)connecting_rooms->content), room, rooms,
-					room_pointers);
+			room_pointers[gfp((int *)connecting_rooms->content)] = room;
+			visit(gfp((int *)connecting_rooms->content), rooms);
 			push(to_visit, new_list(gfp((int *)connecting_rooms->content)));
 			connecting_rooms = connecting_rooms->next;
 		}
 		ft_lstdel(&connecting_rooms, &delete_generic);
 	}
 	path = get_path(rooms, end, room_pointers);
+	if (path != NULL)
+		fprintf(stderr, "%zu\n", path->content_size);
+	remove_visited(rooms, start);
 	free(room_pointers);
 	return (path);
 }
@@ -74,6 +77,7 @@ t_list			*get_paths(t_rooms *rooms, int start, int end)
 	t_list	*paths_list;
 	t_list	*ta;
 
+	rooms->paths[start][start] = 1;
 	paths = new_t_queue();
 	while ((ta = get_augmenting_path(rooms, start, end)) != NULL)
 		push(paths, ta);

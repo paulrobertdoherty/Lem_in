@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/28 15:02:19 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/02/28 20:48:19 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void		print_ants(int ants, int start, int end, t_rooms *rooms)
 		return ;
 	paths = get_paths(rooms, start, end);
 	send_error(!paths);
+	sort_paths(&paths);
+	remove_long_paths(&paths, ants);
 	ant_list = NULL;
 	can_continue = 1;
 	ants_left = ants;
