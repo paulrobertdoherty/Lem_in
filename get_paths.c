@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 12:18:57 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/28 20:59:20 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/01 07:09:50 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ static t_list	*get_augmenting_path(t_rooms *rooms, int start, int end)
 		ft_lstdel(&connecting_rooms, &delete_generic);
 	}
 	path = get_path(rooms, end, room_pointers);
-	if (path != NULL)
-		fprintf(stderr, "%zu\n", path->content_size);
 	remove_visited(rooms, start);
 	free(room_pointers);
 	return (path);
