@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:35:30 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/01 12:55:19 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:37:40 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_list	*pop(t_queue *queue)
 	if (is_empty(queue))
 		return (NULL);
 	tr = queue->first;
-	tr->next = NULL;
 	queue->first = queue->first->next;
 	if (!queue->first)
 		queue->last = NULL;
