@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:40 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/28 20:45:35 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/01 13:07:46 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ int		is_empty(t_queue *queue);
 t_list	*peek(t_queue *queue);
 void	remove_long_paths(t_list **paths, int ants);
 void	sort_paths(t_list **paths);
+int		pop_to_visit(t_queue *to_visit);
 
 #endif

@@ -6,13 +6,11 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 12:18:57 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/01 07:09:50 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/01 13:36:36 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-#include <stdio.h>
 
 int				gfp(int *p)
 {
@@ -52,7 +50,7 @@ static t_list	*get_augmenting_path(t_rooms *rooms, int start, int end)
 	room_pointers = get_room_pointers(rooms);
 	while (!is_empty(to_visit))
 	{
-		room = gfp((int *)pop(to_visit)->content);
+		room = pop_to_visit(to_visit);
 		connecting_rooms = get_connecting_rooms(room, rooms, end);
 		while (connecting_rooms)
 		{

@@ -6,11 +6,13 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:35:30 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/28 14:39:43 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/01 12:55:19 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+#include <stdio.h>
 
 t_queue *new_t_queue(void)
 {
@@ -29,6 +31,7 @@ int		is_empty(t_queue *queue)
 
 void	push(t_queue *queue, t_list *ta)
 {
+	ta->next = NULL;
 	if (is_empty(queue))
 	{
 		queue->first = ta;
@@ -48,7 +51,10 @@ t_list	*pop(t_queue *queue)
 	if (is_empty(queue))
 		return (NULL);
 	tr = queue->first;
+	tr->next = NULL;
 	queue->first = queue->first->next;
+	if (!queue->first)
+		queue->last = NULL;
 	return (tr);
 }
 

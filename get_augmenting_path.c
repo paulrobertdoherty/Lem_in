@@ -6,13 +6,25 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:08:03 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/02/28 19:38:57 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/01 13:10:46 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 #include <stdio.h>
+
+int		pop_to_visit(t_queue *to_visit)
+{
+	t_list	*val;
+	int		tr;
+
+	val = pop(to_visit);
+	tr = gfp((int *)val->content);
+	free(val->content);
+	free(val);
+	return (tr);
+}
 
 t_list	*get_connecting_rooms(int visiting, t_rooms *rooms, int end)
 {
