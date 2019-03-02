@@ -6,11 +6,13 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/01 07:20:16 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/01 19:30:12 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+#include <stdio.h>
 
 static void	print_ant(t_ant *ant, t_rooms *rooms)
 {
