@@ -6,13 +6,11 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:30:32 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/01 19:30:12 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/02 19:50:29 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-#include <stdio.h>
 
 static void	print_ant(t_ant *ant, t_rooms *rooms)
 {
@@ -61,7 +59,7 @@ static int	add_ants(t_list *paths, t_list **ant_list, int ants, int *ants_left)
 		return (0);
 	i = paths;
 	tr = 0;
-	while (i &&  *ants_left >= 1)
+	while (i && i->content_size && *ants_left >= 1)
 	{
 		ta = (t_ant *)malloc(sizeof(t_ant));
 		ta->path = (t_list *)i->content;
@@ -72,6 +70,7 @@ static int	add_ants(t_list *paths, t_list **ant_list, int ants, int *ants_left)
 		ft_lstadd(ant_list, tal);
 		(*ants_left)--;
 		tr = 1;
+		i->content_size--;
 		i = i->next;
 	}
 	return (tr);
@@ -98,7 +97,8 @@ void		print_ants(int ants, int start, int end, t_rooms *rooms)
 	paths = get_paths(rooms, start, end);
 	send_error(!paths);
 	sort_paths(&paths);
-	remove_long_paths(&paths, ants);
+	find_path_capacity(paths, ants);
+	write_paths_file(paths, rooms);
 	ant_list = NULL;
 	can_continue = 1;
 	ants_left = ants;

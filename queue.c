@@ -6,15 +6,13 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:35:30 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/01 15:37:40 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/02 19:56:18 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-#include <stdio.h>
-
-t_queue *new_t_queue(void)
+t_queue	*new_t_queue(void)
 {
 	t_queue	*tr;
 

@@ -6,11 +6,13 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:31 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/01 15:40:24 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/03 12:11:17 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+#include <stdio.h>
 
 t_list		*new_list(int i)
 {
@@ -21,6 +23,7 @@ t_list		*new_list(int i)
 	hi = (int *)malloc(sizeof(int));
 	*hi = i;
 	tr->content = hi;
+	tr->content_size = 0;
 	tr->next = NULL;
 	return (tr);
 }

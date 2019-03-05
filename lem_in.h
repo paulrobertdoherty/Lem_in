@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:13:40 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/01 13:07:46 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/03 10:40:47 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,13 @@ void	push(t_queue *queue, t_list *ta);
 t_list	*pop(t_queue *queue);
 int		is_empty(t_queue *queue);
 t_list	*peek(t_queue *queue);
-void	remove_long_paths(t_list **paths, int ants);
 void	sort_paths(t_list **paths);
 int		pop_to_visit(t_queue *to_visit);
+void	find_path_capacity(t_list *paths, int ants);
+void	iap(t_queue **tv, int s, int *rp, t_rooms *r);
+void	get_room_pointers(int *visiting, t_rooms *rooms);
+void	remove_ste_connections(t_queue *paths, t_rooms *rooms, int s, int e);
+
+void	write_paths_file(t_list *paths, t_rooms *rooms);
 
 #endif

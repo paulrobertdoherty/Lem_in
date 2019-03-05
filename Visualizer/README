@@ -1,0 +1,7 @@
+To run (only works on Mac with Preview)
+ 1.)
+ 	Run sh run.sh in Terminal
+ 2.)
+ 	First argument is file to send to lem_in (relative to lem_in)
+	Second argument is "display-other-paths" (without quotes) to display all paths not taken, or anything else if not displaying paths
+	Third argument is the name of the PNG file to produce

@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 12:18:57 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/02 10:26:42 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/03 11:45:33 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		visit(int visiting, t_rooms *rooms)
 	rooms->paths[visiting][visiting] = rooms->paths[visiting][visiting] | 1;
 }
 
-static void		get_room_pointers(int *room_pointers, t_rooms *rooms)
+void			get_room_pointers(int *room_pointers, t_rooms *rooms)
 {
 	int	i;
 
@@ -45,9 +45,7 @@ static t_list	*get_augmenting_path(t_rooms *rooms, int start, int end,
 	int		room;
 	t_list	*connecting_rooms;
 
-	to_visit = new_t_queue();
-	push(to_visit, new_list(start));
-	get_room_pointers(room_pointers, rooms);
+	iap(&to_visit, start, room_pointers, rooms);
 	while (!is_empty(to_visit))
 	{
 		room = pop_to_visit(to_visit);
@@ -77,6 +75,7 @@ t_list			*get_paths(t_rooms *rooms, int start, int end)
 
 	rooms->paths[start][start] = 1;
 	paths = new_t_queue();
+	remove_ste_connections(paths, rooms, start, end);
 	room_pointers = (int *)malloc(sizeof(int) * rooms->num_of_rooms);
 	get_room_pointers(room_pointers, rooms);
 	while ((ta = get_augmenting_path(rooms, start, end, room_pointers))

@@ -40,9 +40,14 @@ public class Main {
         java.util.List<java.util.List<Room>> paths = new LinkedList<java.util.List<Room>>();
         Random random = new Random();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(new File("output.txt")));
+            BufferedReader reader = new BufferedReader(new FileReader(new File(args[0])));
             String line;
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
+                if (line.startsWith("#"))
+                    continue;
+                if (line.startsWith("L") || line.length() == 0)
+                    break;
                 if (!line.contains("-")) {
                     String[] split = line.split(" ");
                     rooms.add(new Room(split[0], random.nextInt(5120), random.nextInt(2880)));
@@ -60,7 +65,7 @@ public class Main {
             }
             reader.close();
 
-            BufferedReader pathReader = new BufferedReader(new FileReader(new File("paths.txt")));
+            BufferedReader pathReader = new BufferedReader(new FileReader(new File(args[1])));
             java.util.List<Room> path = new ArrayList<Room>();
             paths.add(path);
             while ((line = pathReader.readLine()) != null) {
@@ -75,9 +80,11 @@ public class Main {
                 }
             }
 
-            graphics.setColor(Color.WHITE);
-            for (RoomLink l : links) {
-                graphics.drawLine(l.one.x, l.one.y, l.two.x, l.two.y);
+            if (args[2].equals("display-other-paths")) {
+                graphics.setColor(Color.WHITE);
+                for (RoomLink l : links) {
+                    graphics.drawLine(l.one.x, l.one.y, l.two.x, l.two.y);
+                }
             }
 
             for (java.util.List<Room> p : paths) {
@@ -93,7 +100,7 @@ public class Main {
             for (Room r : rooms) {
                 graphics.fillOval(r.x - 5, r.y - 5, 10, 10);
             }
-            ImageIO.write(image, "png", new File("out.png"));
+            ImageIO.write(image, "png", new File(args[3]));
         } catch (IOException e) {
             e.printStackTrace();
             return;

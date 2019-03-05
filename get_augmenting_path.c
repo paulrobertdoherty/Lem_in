@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:08:03 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/02 08:35:50 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/02 20:16:34 by pdoherty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,14 @@ t_list	*get_path(t_rooms *rooms, int end, int *room_pointers)
 		return (NULL);
 	wrapper = (t_list *)malloc(sizeof(t_list));
 	wrapper->content = path;
-	wrapper->content_size = length;
+	wrapper->content_size = length - 1;
 	wrapper->next = NULL;
 	return (wrapper);
+}
+
+void	iap(t_queue **tv, int s, int *rp, t_rooms *r)
+{
+	*tv = new_t_queue();
+	push(*tv, new_list(s));
+	get_room_pointers(rp, r);
 }
