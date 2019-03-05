@@ -6,7 +6,7 @@
 /*   By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 16:30:22 by pdoherty          #+#    #+#             */
-/*   Updated: 2019/03/03 15:27:47 by pdoherty         ###   ########.fr       */
+/*   Updated: 2019/03/03 15:41:21 by jadawson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	add_new_room(t_rooms *rooms, char *line)
 	send_error(!split[1] || !split[2] || split[3]);
 	free(line);
 	ft_lstadd(&(rooms->room_name_list), ft_lstnew(split[0],
-			ft_strlen(split[0])));
+				ft_strlen(split[0]) + 1));
 	free_split(split);
 	rooms->num_of_rooms++;
 	return (rooms->num_of_rooms - 1);

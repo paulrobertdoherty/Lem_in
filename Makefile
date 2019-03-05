@@ -6,7 +6,7 @@
 #    By: pdoherty <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/30 16:29:23 by pdoherty          #+#    #+#              #
-#    Updated: 2019/03/03 12:09:50 by pdoherty         ###   ########.fr        #
+#    Updated: 2019/03/03 15:40:14 by jadawson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,5 +37,5 @@ re: fclean all
 
 asan: fclean
 	@make -C libft
-	@gcc $(FLAGS) -g -fsanitize=address -c $(SRC) ; ASAN_OPTIONS=detect_leaks=1
+	@gcc $(FLAGS) -g -fsanitize=address -c $(SRC)
 	@gcc $(FLAGS) -g -fsanitize=address -o $(NAME) $(OBJ) -L ./libft -lft
